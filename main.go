@@ -4,13 +4,13 @@ import (
 	"fmt"
 )
 
-func generateCombinations(arr []int, r int) [][]int {
+func generateCombinations(arr []uint64, r uint64) [][]uint64 {
 	if r == 0 {
-		return [][]int{[]int{}}
+		return [][]uint64{[]uint64{}}
 	}
 
 	if len(arr) == 0 {
-		return [][]int{}
+		return [][]uint64{}
 	}
 
 	head := arr[0]
@@ -20,7 +20,7 @@ func generateCombinations(arr []int, r int) [][]int {
 	withHead := generateCombinations(tail, r-1)
 
 	for i := 0; i < len(withHead); i++ {
-		withHead[i] = append([]int{head}, withHead[i]...)
+		withHead[i] = append([]uint64{head}, withHead[i]...)
 	}
 
 	return append(withHead, withoutHead...)
@@ -30,12 +30,12 @@ func main() {
 	n := 6
 	r := 4
 
-	arr := make([]int, n)
+	arr := make([]uint64, n)
 	for i := 0; i < n; i++ {
-		arr[i] = i + 1
+		arr[i] = uint64(i + 1)
 	}
 
-	combinations := generateCombinations(arr, r)
+	combinations := generateCombinations(arr, uint64(r))
 	result := len(combinations)
 
 	fmt.Println(n, r, result)
