@@ -27,5 +27,16 @@ func generateCombinations(arr []int, r int) [][]int {
 }
 
 func main() {
-	fmt.Println("Hello, World!")
+	n := 6
+	r := 4
+
+	arr := make([]int, n)
+	for i := 0; i < n; i++ {
+		arr[i] = i + 1
+	}
+
+	combinations := generateCombinations(arr, r)
+	result := len(combinations)
+
+	fmt.Println(n, r, result)
 }
