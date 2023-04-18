@@ -27,7 +27,7 @@ func generateCombinations(arr []uint64, r uint64) [][]uint64 {
 }
 
 func main() {
-	n := 6
+	n := 8
 	r := 4
 
 	arr := make([]uint64, n)
