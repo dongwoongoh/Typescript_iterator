@@ -36,8 +36,9 @@ func main() {
 	}
 
 	discount := float64(naturalNum) * (discountRate / 100)
-	result := int(discount)
-	fmt.Printf("할인 금액은 %d 입니다.", result)
+	payment := float64(naturalNum) - discount
+	result := int(payment)
+	fmt.Printf("최종 지불 금액은 %d 입니다.", result)
 }
 
 func getUserInput() string {
