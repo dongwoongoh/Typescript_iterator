@@ -7,7 +7,7 @@ import (
 
 func main() {
 	var naturalNum int
-	var discountNum float64
+	var discountRate float64
 
 	for {
 		fmt.Print("첫 번째 숫자(자연수)를 입력하세요: ")
@@ -23,7 +23,7 @@ func main() {
 	}
 
 	for {
-		fmt.Print("두 번째 숫자(양의 실수)를 입력하세요: ")
+		fmt.Print("두 번째 숫자(할인율)를 입력하세요: ")
 		input, err := strconv.ParseFloat(getUserInput(), 64)
 
 		if err != nil || input <= 0 {
@@ -31,11 +31,11 @@ func main() {
 			continue
 		}
 
-		discountNum = input
+		discountRate = input
 		break
 	}
 
-	discount := float64(naturalNum) * discountNum
+	discount := float64(naturalNum) * (discountRate / 100)
 	fmt.Printf("할인 금액은 %.2f 입니다.", discount)
 }
 
