@@ -2,41 +2,47 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 )
 
-func generateCombinations(arr []uint64, r uint64) [][]uint64 {
-	if r == 0 {
-		return [][]uint64{[]uint64{}}
+func main() {
+	var naturalNum int
+	var discountRate float64
+
+	for {
+		fmt.Print("첫 번째 숫자(자연수)를 입력하세요: ")
+		input, err := strconv.Atoi(getUserInput())
+
+		if err != nil || input <= 0 {
+			fmt.Println("잘못된 입력입니다. 자연수를 입력하세요.")
+			continue
+		}
+
+		naturalNum = input
+		break
 	}
 
-	if len(arr) == 0 {
-		return [][]uint64{}
+	for {
+		fmt.Print("두 번째 숫자(할인율)를 입력하세요: ")
+		input, err := strconv.ParseFloat(getUserInput(), 64)
+
+		if err != nil || input <= 0 {
+			fmt.Println("잘못된 입력입니다. 양의 실수를 입력하세요.")
+			continue
+		}
+
+		discountRate = input
+		break
 	}
 
-	head := arr[0]
-	tail := arr[1:]
-
-	withoutHead := generateCombinations(tail, r)
-	withHead := generateCombinations(tail, r-1)
-
-	for i := 0; i < len(withHead); i++ {
-		withHead[i] = append([]uint64{head}, withHead[i]...)
-	}
-
-	return append(withHead, withoutHead...)
+	discount := float64(naturalNum) * (discountRate / 100)
+	payment := float64(naturalNum) - discount
+	result := int(payment)
+	fmt.Printf("최종 지불 금액은 %d 입니다.", result)
 }
 
-func main() {
-	n := 6
-	r := 4
-
-	arr := make([]uint64, n)
-	for i := 0; i < n; i++ {
-		arr[i] = uint64(i + 1)
-	}
-
-	combinations := generateCombinations(arr, uint64(r))
-	result := len(combinations)
-
-	fmt.Println(n, r, result)
+func getUserInput() string {
+	var input string
+	fmt.Scanln(&input)
+	return input
 }
