@@ -2,47 +2,26 @@ package main
 
 import (
 	"fmt"
-	"strconv"
+	"sync"
 )
 
-func main() {
-	var naturalNum int
-	var discountRate float64
+var wg sync.WaitGroup
 
-	for {
-		fmt.Print("첫 번째 숫자(자연수)를 입력하세요: ")
-		input, err := strconv.Atoi(getUserInput())
-
-		if err != nil || input <= 0 {
-			fmt.Println("잘못된 입력입니다. 자연수를 입력하세요.")
-			continue
-		}
-
-		naturalNum = input
-		break
+func sum(a, b int) {
+	s := 0
+	for i := a; i <= b; i++ {
+		s += i
 	}
-
-	for {
-		fmt.Print("두 번째 숫자(할인율)를 입력하세요: ")
-		input, err := strconv.ParseFloat(getUserInput(), 64)
-
-		if err != nil || input <= 0 {
-			fmt.Println("잘못된 입력입니다. 양의 실수를 입력하세요.")
-			continue
-		}
-
-		discountRate = input
-		break
-	}
-
-	discount := float64(naturalNum) * (discountRate / 100)
-	payment := float64(naturalNum) - discount
-	result := int(payment)
-	fmt.Printf("최종 지불 금액은 %d 입니다.", result)
+	fmt.Println(s)
+	wg.Done()
 }
 
-func getUserInput() string {
-	var input string
-	fmt.Scanln(&input)
-	return input
+func main() {
+	try := 10
+	wg.Add(try)
+	for i := 0; i < 10; i++ {
+		go sum(1, 100)
+	}
+	wg.Wait()
+	fmt.Println("multiple thread has been done")
 }
